@@ -24,7 +24,4 @@ public class PedidoService {
 		return pedidoRepository.save(pedidoModel);
 	}
 
-	public Optional<PedidoModel> findById(int pedidoId) {
-		return pedidoRepository.findById(pedidoId);
-	}
 }

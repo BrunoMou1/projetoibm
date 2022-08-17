@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.projetoibm.projetoibm.models.PedidoModel;
 
 @Repository
-public interface PedidoRepository extends JpaRepository<PedidoModel, Integer> {
+public interface PedidoRepository extends JpaRepository<PedidoModel, Long> {
 
 }

@@ -1,6 +1,9 @@
 package br.com.projetoibm.projetoibm.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -18,8 +21,30 @@ public class ClientModel {
 	private String tel;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="cliente")
-    private Set<PedidoModel> pedidos = new HashSet<>();
+    private List<PedidoModel> pedidos = new ArrayList<>();
 
+	
+	public ClientModel() {
+		
+	}
+	
+	public ClientModel(int id, String nome, String cpf, String email, String tel) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.tel = tel;
+        this.email = email;
+    }
+
+	public ClientModel(int id, String nome, String cpf, String tel, String email, List<PedidoModel> pedidos) {
+        this.id = id;
+		this.nome = nome;
+        this.cpf = cpf;
+        this.tel = tel;
+        this.email = email;
+        this.pedidos = pedidos;
+    }
+	
 	public int getId() {
 		return id;
 	}
@@ -61,11 +86,13 @@ public class ClientModel {
 		this.tel = tel;
 	}
 
-	public Set<PedidoModel> getPedidos() {
+	public List<PedidoModel> getPedidos() {
 		return pedidos;
 	}
 
-	public void setPedidos(Set<PedidoModel> pedidos) {
+	public void setPedidos(List<PedidoModel> pedidos) {
 		this.pedidos = pedidos;
 	}
+
+	
 }

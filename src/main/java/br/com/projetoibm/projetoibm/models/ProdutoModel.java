@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name="produto")
@@ -13,7 +14,7 @@ public class ProdutoModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     
     private String nome;
     private String desc_produto;
@@ -24,16 +25,38 @@ public class ProdutoModel{
     @ManyToOne
 	@JoinColumn(name = "pedido_id", referencedColumnName = "id")
     private PedidoModel pedido;
+	
+
+    public ProdutoModel(Long id, String nome, Double preco_produto, boolean generico_produto, String desc_produto, PedidoModel pedido) {
+        this.id = id;
+        this.nome = nome;
+        this.preco_produto = preco_produto;
+        this.generico_produto = generico_produto;
+        this.desc_produto = desc_produto;
+        this.pedido = pedido;
+    }
+    
+
+    public ProdutoModel() {
+    }
+
+    public ProdutoModel(Long id, String nome, Double preco_produto, boolean generico_produto, String desc_produto) {
+        this.id = id;
+        this.nome = nome;
+        this.preco_produto = preco_produto;
+        this.generico_produto = generico_produto;
+        this.desc_produto = desc_produto;
+    }
 
 	public PedidoModel getPedido() {
 		return pedido;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -74,6 +97,19 @@ public class ProdutoModel{
 	public void setPedido(PedidoModel pedido) {
 		this.pedido = pedido;
 	}
+	
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProdutoModel produto = (ProdutoModel) o;
+        return id.equals(produto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     
 }

@@ -43,12 +43,4 @@ public class PedidoController {
 		BeanUtils.copyProperties(pedidoDTO, pedidoModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.save(pedidoModel));
 	}
-	
-	@PutMapping("/{pedidoId}/cliente/{clienteId}")
-	public ResponseEntity<Object> updateClient(@PathVariable(value = "pedidoId") int pedidoId, @PathVariable(value = "clienteId") int clienteId) {
-	Optional<PedidoModel> pedidoModel = pedidoService.findById(pedidoId);
-	Optional<ClientModel> clientModel = clientService.findById(clienteId);
-	pedidoModel.get().setCliente(clientModel.get());	
-	return ResponseEntity.status(HttpStatus.OK).body(pedidoService.save(pedidoModel.get()));
-	}
 }

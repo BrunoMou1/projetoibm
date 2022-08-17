@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -24,7 +25,7 @@ public class PedidoModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
 	@JsonIgnore
     @ManyToOne()
@@ -36,8 +37,17 @@ public class PedidoModel {
 	public List<ProdutoModel> getProdutos() {
 		return produtos;
 	}
+	
+	public PedidoModel() {
+    }
 
-	public int getId() {
+    public PedidoModel(Long id, ClientModel cliente) {
+        this.id = id;
+        this.cliente = cliente;
+    }
+
+
+	public Long getId() {
 		return id;
 	}
 
@@ -45,7 +55,7 @@ public class PedidoModel {
 		this.produtos = produtos;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -56,6 +66,19 @@ public class PedidoModel {
 	public void setCliente(ClientModel cliente) {
 		this.cliente = cliente;
 	}
+	
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PedidoModel pedido = (PedidoModel) o;
+        return id.equals(pedido.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
 
 }
